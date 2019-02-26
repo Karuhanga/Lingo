@@ -15,13 +15,18 @@ class GistController(var dashboard: GistControllerExternalInterface): GistExtern
 
     val count = 15
     override fun doSearch(query: String, page: Int) {
-        val translations: List<Translation> = if (language == RURUULI){
-            database(dashboard.requestContext()).translationDao().loadTranslationsByRuruuliPhrase(query, count, page)
+        val translations: List<Translation>? = if (language == RURUULI){
+            database(dashboard.requestContext())?.translationDao()?.loadTranslationsByRuruuliPhrase(query, count, page)
         } else{
-            database(dashboard.requestContext()).translationDao().loadTranslationsByEnglishPhrase(query, count, page)
+            database(dashboard.requestContext())?.translationDao()?.loadTranslationsByEnglishPhrase(query, count, page)
         }
 
         val results = mutableListOf<Listable>()
+
+        if (translations == null){
+            dashboard.onSearchResultsReady(results, page)
+            return
+        }
 
         for (translation in translations){
             results.add(object : Listable{

@@ -35,16 +35,16 @@ fun loadPhrases(context: Context, publishProgress: (step: Int) -> Unit){
     var i = 0
 
     for (phrase : Phrase in phrases){
-        database(context).phraseDao().insertPhrase(phrase)
+        database(context)?.phraseDao()?.insertPhrase(phrase)
         publishProgress(2 + i++)
 
     }
 }
 
 fun loadLanguages(context: Context, publishProgress: (step: Int) -> Unit){
-    database(context).languageDao().insertLanguage(Language(1, "English"))
+    database(context)?.languageDao()?.insertLanguage(Language(1, "English"))
     publishProgress(1)
-    database(context).languageDao().insertLanguage(Language(2, "Ruruuli/Lunyara"))
+    database(context)?.languageDao()?.insertLanguage(Language(2, "Ruruuli/Lunyara"))
     publishProgress(2)
 }
 
@@ -68,7 +68,7 @@ fun loadTranslations(context: Context, publishProgress: (step: Int) -> Unit){
     var i = 0
 
     for (translation: Translation in translations){
-        database(context).translationDao().insertTranslation(translation)
+        database(context)?.translationDao()?.insertTranslation(translation)
         publishProgress(5005 + i++)
     }
 }
