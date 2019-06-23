@@ -6,16 +6,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ug.karuhanga.lingo.R
+import ug.karuhanga.lingo.model.entities.EnglishRuruuliTranslation
+import ug.karuhanga.lingo.views.GistCallbackInterface
 
-class Adapter(var items: MutableList<Listable>): RecyclerView.Adapter<ViewHolder>() {
+class Adapter(var items: MutableList<EnglishRuruuliTranslation>, var callbackOwner: GistCallbackInterface): RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.result, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, callbackOwner)
     }
 
-    fun appendData(items: List<Listable>){
-        var index = this.items.size
-        var length = items.size
+    fun appendData(items: List<EnglishRuruuliTranslation>){
+        val index = this.items.size
+        val length = items.size
         this.items.addAll(items)
         notifyItemRangeInserted(index, length)
     }
@@ -34,12 +36,14 @@ class Adapter(var items: MutableList<Listable>): RecyclerView.Adapter<ViewHolder
     }
 }
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class ViewHolder(itemView: View, val callbackOwner: GistCallbackInterface) : RecyclerView.ViewHolder(itemView){
     var language1TextView: TextView = itemView.findViewById(R.id.text_view_result_big_text)
     var language2TextView: TextView = itemView.findViewById(R.id.text_view_result_small_text)
+    var view: View = itemView
 
-    fun update(item: Listable){
-        language1TextView.text = item.getText1()
-        language2TextView.text = item.getText2()
+    fun update(item: EnglishRuruuliTranslation){
+        language1TextView.text = item.getText1(callbackOwner.getCurrentLanguage())
+        language2TextView.text = item.getText2(callbackOwner.getCurrentLanguage())
+        view.setOnClickListener{callbackOwner.showItem(item)}
     }
 }

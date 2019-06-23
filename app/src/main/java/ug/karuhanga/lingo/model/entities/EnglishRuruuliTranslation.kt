@@ -3,7 +3,8 @@ package ug.karuhanga.lingo.model.entities
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import ug.karuhanga.lingo.utils.Listable
+import ug.karuhanga.lingo.utils.RURUULI
+import ug.karuhanga.lingo.utils.removeBracketed
 
 @Entity(indices = [Index(value = arrayOf("english", "ruruuli"), unique = true)])
 data class EnglishRuruuliTranslation(
@@ -13,13 +14,21 @@ data class EnglishRuruuliTranslation(
     var ruruuli_context: String,
     var word_type: String,
     var english_example: String,
-    var ruruuli_example: String
-): Listable {
-    override fun getText1(): String {
-        return english
+    var ruruuli_example: String){
+
+    fun getText1(language: String): String {
+        return if (language == RURUULI){
+            removeBracketed(ruruuli)
+        } else{
+            removeBracketed(english)
+        }
     }
 
-    override fun getText2(): String {
-        return ruruuli
+    fun getText2(language: String): String {
+        return if (language == RURUULI){
+            removeBracketed(english)
+        } else{
+            removeBracketed(ruruuli)
+        }
     }
 }

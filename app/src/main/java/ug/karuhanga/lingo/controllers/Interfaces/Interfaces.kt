@@ -1,9 +1,9 @@
 package ug.karuhanga.lingo.controllers.Interfaces
 
 import android.content.Context
-import ug.karuhanga.lingo.utils.Listable
+import ug.karuhanga.lingo.model.entities.EnglishRuruuliTranslation
 
 interface GistControllerExternalInterface{
-    fun onSearchResultsReady(results: List<Listable>, page: Int)
+    fun onSearchResultsReady(results: List<EnglishRuruuliTranslation>, page: Int)
     fun requestContext(): Context
 }

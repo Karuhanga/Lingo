@@ -35,3 +35,12 @@ fun loadEnglishRuruuliTranslations(context: Context, publishProgress: (step: Int
         publishProgress(i)
     }
 }
+
+fun removeBracketed(text: String): String{
+    val openingBracket = text.indexOf('(')
+    val closingBracket = text.indexOf(')')
+    if (openingBracket > -1 && closingBracket > -1) {
+        return text.substringBefore('(') + text.substringAfter(')')
+    }
+    return text
+}

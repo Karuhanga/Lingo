@@ -3,9 +3,11 @@ package ug.karuhanga.lingo.views
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.CompoundButton
 
 import kotlinx.android.synthetic.main.activity_gist.*
@@ -18,16 +20,42 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.androidannotations.api.BackgroundExecutor
 import ug.karuhanga.lingo.utils.*
+import android.view.Gravity
+import android.widget.TextView
+import com.kyleduo.blurpopupwindow.library.BlurPopupWindow
+import ug.karuhanga.lingo.model.entities.EnglishRuruuliTranslation
 
 
 @EActivity(R.layout.activity_gist)
-class Gist : AppCompatActivity(), GistControllerExternalInterface {
+class Gist : AppCompatActivity(), GistControllerExternalInterface, GistCallbackInterface {
+    override fun getCurrentLanguage(): String {
+        return controller.getCurrentLanguage()
+    }
+
+    override fun showItem(item: EnglishRuruuliTranslation) {
+        val view: View = LayoutInflater.from(this).inflate(R.layout.translation_detail, content_gist_parent, false)
+        view.findViewById<TextView>(R.id.translation_detail_word_type).text = "${item.getText1(getCurrentLanguage())}(${item.word_type})"
+        view.findViewById<TextView>(R.id.translation_detail_english).text = item.english
+        view.findViewById<TextView>(R.id.translation_detail_ruruuli).text = item.ruruuli
+        view.findViewById<TextView>(R.id.translation_detail_english_usage).text = item.english_example
+        view.findViewById<TextView>(R.id.translation_detail_ruruuli_usage).text = item.ruruuli_example
+
+        BlurPopupWindow.Builder<BlurPopupWindow>(this)
+            .setContentView(view)
+            .setGravity(Gravity.CENTER)
+            .setScaleRatio(0.2f)
+            .setBlurRadius(0f)
+            .setTintColor(0x30000000)
+            .build()
+            .show()
+    }
+
     override fun requestContext(): Context {
         return this
     }
 
     @UiThread
-    override fun onSearchResultsReady(results: List<Listable>, page: Int) {
+    override fun onSearchResultsReady(results: List<EnglishRuruuliTranslation>, page: Int) {
         if (page == 1){
             adapter.clearData()
             viewScrollListener.resetState()
@@ -61,7 +89,7 @@ class Gist : AppCompatActivity(), GistControllerExternalInterface {
         }
         recycler_view_gist.addOnScrollListener(viewScrollListener)
 
-        adapter = Adapter(mutableListOf())
+        adapter = Adapter(mutableListOf(), this)
         recycler_view_gist.adapter = adapter
 
         text_view_language.text = getString(R.string.ruruuli)
@@ -141,4 +169,10 @@ fun launch(context: Context) {
 interface GistExternalInterface{
     fun doSearch(query: String, page: Int)
     fun switchLanguage(language: String)
+    fun getCurrentLanguage(): String
+}
+
+interface GistCallbackInterface{
+    fun showItem(item: EnglishRuruuliTranslation)
+    fun getCurrentLanguage(): String
 }
