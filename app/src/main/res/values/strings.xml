@@ -7,8 +7,10 @@
     <string name="translation">Translation</string>
     <string name="result">Result</string>
 
-    <string name="title_activity_starter">Lingo</string>
+    <string name="title_activity_starter">Lingo: English, Ruruuli/ Lunyara Translation</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="lingo">Lingo</string>
+    <string name="lingo">English, Ruruuli/ Lunyara</string>
+    <string name="flip_for_runyara">Flip to search in Ruruuli/Lunyara</string>
+    <string name="flip_for_english">Flip to search in English</string>
 </resources>

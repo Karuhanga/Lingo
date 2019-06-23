@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.CompoundButton
-import android.widget.EditText
 
 import kotlinx.android.synthetic.main.activity_gist.*
 import kotlinx.android.synthetic.main.content_gist.*
@@ -71,7 +70,7 @@ class Gist : AppCompatActivity(), GistControllerExternalInterface {
     }
 
     private fun startFirstSearch() {
-        search("", 1)
+        this.onSearchTextChange()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -123,9 +122,11 @@ class Gist : AppCompatActivity(), GistControllerExternalInterface {
     fun switchSearchLanguageTo(language: String) {
         if (language == ENGLISH){
             text_view_language.text = getText(R.string.english)
+            text_view_flip.text = getString(R.string.flip_for_runyara)
         }
         else{
             text_view_language.text = getText(R.string.ruruuli)
+            text_view_flip.text = getString(R.string.flip_for_english)
         }
         controller.switchLanguage(language)
         startFirstSearch()

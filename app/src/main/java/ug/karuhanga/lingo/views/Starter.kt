@@ -10,9 +10,7 @@ import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.Background
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.UiThread
-import ug.karuhanga.lingo.utils.loadLanguages
-import ug.karuhanga.lingo.utils.loadPhrases
-import ug.karuhanga.lingo.utils.loadTranslations
+import ug.karuhanga.lingo.utils.loadEnglishRuruuliTranslations
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -20,6 +18,8 @@ import ug.karuhanga.lingo.utils.loadTranslations
  */
 @EActivity(R.layout.activity_starter)
 class Starter : AppCompatActivity() {
+
+    val firstTimeKey = "v2beenHereBefore";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class Starter : AppCompatActivity() {
     }
 
     private fun resolvePath() {
-        if (getSharedPreferences(packageName, Context.MODE_PRIVATE).getBoolean("beenHereBefore", false)){
+        if (getSharedPreferences(packageName, Context.MODE_PRIVATE).getBoolean(firstTimeKey, false)){
             launchGist()
         }
         else{
@@ -43,9 +43,7 @@ class Starter : AppCompatActivity() {
 
     @Background
     fun populateDatabase() {
-        loadLanguages(this, this::publishProgress)
-        loadPhrases(this, this::publishProgress)
-        loadTranslations(this, this::publishProgress)
+        loadEnglishRuruuliTranslations(this, this::publishProgress)
         setBeenHereBefore()
 
         launchGist()
@@ -53,7 +51,7 @@ class Starter : AppCompatActivity() {
 
     @SuppressLint("ApplySharedPref")
     private fun setBeenHereBefore() {
-        getSharedPreferences(packageName, Context.MODE_PRIVATE).edit().putBoolean("beenHereBefore", true).commit()
+        getSharedPreferences(packageName, Context.MODE_PRIVATE).edit().putBoolean(firstTimeKey, true).commit()
     }
 
     @UiThread
