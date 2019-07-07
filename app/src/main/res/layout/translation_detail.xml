@@ -60,6 +60,20 @@
                 android:layout_marginBottom="@dimen/margins"
                 android:textAppearance="@android:style/TextAppearance.Large"/>
 
+        <TextView
+                android:text="Ruruuli/ Lunyara Context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/translation_detail_ruruuli_context_label"/>
+
+        <TextView
+                tools:text="Ruruuli/ Lunyara Context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/translation_detail_ruruuli_context"
+                android:layout_marginBottom="@dimen/margins"
+                android:textAppearance="@android:style/TextAppearance.Large"/>
+
 
         <TextView
                 android:text="English Usage"

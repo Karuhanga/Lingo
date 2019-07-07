@@ -15,8 +15,8 @@ android {
         applicationId "ug.karuhanga.lingo"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "4.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // blurpopup requires starts
         renderscriptTargetApi 25

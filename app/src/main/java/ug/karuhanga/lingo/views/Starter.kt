@@ -19,7 +19,7 @@ import ug.karuhanga.lingo.utils.loadEnglishRuruuliTranslations
 @EActivity(R.layout.activity_starter)
 class Starter : AppCompatActivity() {
 
-    val firstTimeKey = "v2beenHereBefore";
+    val firstTimeKey = "v4beenHereBefore";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

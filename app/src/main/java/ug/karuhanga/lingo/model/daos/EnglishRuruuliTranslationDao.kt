@@ -17,6 +17,6 @@ interface EnglishRuruuliTranslationDao{
     @Query("SELECT * FROM englishruruulitranslation WHERE english LIKE '%' || :englishPhrase || '%' LIMIT :count OFFSET (:count*(:page-1))")
     fun loadTranslationsByEnglishPhrase(englishPhrase: String, count: Int, page: Int) : List<EnglishRuruuliTranslation>
 
-    @Query("SELECT * FROM englishruruulitranslation WHERE ruruuli LIKE '%' || :ruruuliPhrase || '%' LIMIT :count OFFSET (:count*(:page-1))")
+    @Query("SELECT * FROM englishruruulitranslation WHERE (ruruuli LIKE '%' || :ruruuliPhrase || '%') OR (ruruuli_with_context LIKE '%' || :ruruuliPhrase || '%') LIMIT :count OFFSET (:count*(:page-1))")
     fun loadTranslationsByRuruuliPhrase(ruruuliPhrase: String, count: Int, page: Int) : List<EnglishRuruuliTranslation>
 }

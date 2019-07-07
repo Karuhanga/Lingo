@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView
 import org.androidannotations.api.BackgroundExecutor
 import ug.karuhanga.lingo.utils.*
 import android.view.Gravity
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.TextView
 import com.kyleduo.blurpopupwindow.library.BlurPopupWindow
 import ug.karuhanga.lingo.model.entities.EnglishRuruuliTranslation
@@ -37,8 +39,17 @@ class Gist : AppCompatActivity(), GistControllerExternalInterface, GistCallbackI
         view.findViewById<TextView>(R.id.translation_detail_word_type).text = "${item.getText1(getCurrentLanguage())}(${item.word_type})"
         view.findViewById<TextView>(R.id.translation_detail_english).text = item.english
         view.findViewById<TextView>(R.id.translation_detail_ruruuli).text = item.ruruuli
+        view.findViewById<TextView>(R.id.translation_detail_ruruuli_context).text = item.ruruuli_context
         view.findViewById<TextView>(R.id.translation_detail_english_usage).text = item.english_example
         view.findViewById<TextView>(R.id.translation_detail_ruruuli_usage).text = item.ruruuli_example
+
+        if (item.ruruuli_context.isBlank()) {
+            view.findViewById<TextView>(R.id.translation_detail_ruruuli_context).visibility = GONE
+            view.findViewById<TextView>(R.id.translation_detail_ruruuli_context_label).visibility = GONE
+        } else {
+            view.findViewById<TextView>(R.id.translation_detail_ruruuli_context).visibility = VISIBLE
+            view.findViewById<TextView>(R.id.translation_detail_ruruuli_context_label).visibility = VISIBLE
+        }
 
         BlurPopupWindow.Builder<BlurPopupWindow>(this)
             .setContentView(view)

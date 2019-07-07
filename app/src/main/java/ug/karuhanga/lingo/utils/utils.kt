@@ -44,3 +44,7 @@ fun removeBracketed(text: String): String{
     }
     return text
 }
+
+fun removeBrackets(text: String): String{
+    return text.replace("(", "").replace(")", "")
+}

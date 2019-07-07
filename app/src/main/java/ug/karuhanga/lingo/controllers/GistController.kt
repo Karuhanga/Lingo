@@ -25,10 +25,8 @@ class GistController(var dashboard: GistControllerExternalInterface): GistExtern
             database(dashboard.requestContext())?.englishRuruuliTranslationDao()?.loadTranslationsByEnglishPhrase(query, count, page)
         }
 
-        val results = mutableListOf<EnglishRuruuliTranslation>()
-
         if (translations == null){
-            dashboard.onSearchResultsReady(results, page)
+            dashboard.onSearchResultsReady(mutableListOf(), page)
             return
         }
 

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import ug.karuhanga.lingo.model.daos.EnglishRuruuliTranslationDao
 import ug.karuhanga.lingo.model.entities.EnglishRuruuliTranslation
 
-@Database(version = 3, entities = [EnglishRuruuliTranslation::class], exportSchema = false)
+@Database(version = 4, entities = [EnglishRuruuliTranslation::class], exportSchema = false)
 abstract class Database : RoomDatabase() {
     abstract fun englishRuruuliTranslationDao() : EnglishRuruuliTranslationDao
 
