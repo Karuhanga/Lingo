@@ -44,7 +44,7 @@ fun loadPhrases(context: Context, publishProgress: (step: Int) -> Unit){
 fun loadLanguages(context: Context, publishProgress: (step: Int) -> Unit){
     database(context)?.languageDao()?.insertLanguage(Language(1, "English"))
     publishProgress(1)
-    database(context)?.languageDao()?.insertLanguage(Language(2, "Ruruuli/Lunyara"))
+    database(context)?.languageDao()?.insertLanguage(Language(2, "Luganda"))
     publishProgress(2)
 }
 
